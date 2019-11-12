@@ -8,7 +8,6 @@ export default class Node extends Component {
     render() {
         return (
             <div className="node">
-                <p>this is node jsx</p>
             </div>
         )
     }
