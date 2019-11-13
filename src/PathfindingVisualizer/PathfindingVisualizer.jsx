@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import Node from "../Node/Node";
 
 import "./PathfindingVisualizer.css";
+import { getNodesInShortestPathOrder, dijkstra } from "../Algorithms/dijkstras";
+
+const START_NODE_ROW = 10;
+const START_NODE_COL = 5;
+const END_NODE_ROW = 15;
+const END_NODE_COL = 45;
 
 export default class PathfindingVisualizer extends Component {
   constructor(props) {
@@ -36,7 +42,7 @@ export default class PathfindingVisualizer extends Component {
     const startNode = grid[START_NODE_ROW][START_NODE_COL]
     const endNode = grid[END_NODE_ROW][END_NODE_COL]
     const visitedNodesInOrder = dijkstra(grid, startNode, endNode)
-    const 
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode)
   }
 
 

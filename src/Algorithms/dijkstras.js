@@ -5,7 +5,7 @@ const node = {
     distance
 }
 
-function dijkstra(grid, startNode, endNode) {
+export function dijkstra(grid, startNode, endNode) {
     if (!startNode || !endNode || startNode === endNode) return false
 
     const visitedNodes = []
