@@ -12,7 +12,9 @@ function dijkstra(grid, startNode, endNode) {
     startNode.distance = 0
 
     const unvistedNode = getAllNodes(grid)
+    
 
+    //grab closest unvisited node and set it to visited and push to visitedNode until closest node 
     while (!!unvistedNode.length){
         const sortedUnvisitedNodes = sortNodesByDistance(unvistedNodes)
         const closestNode = sortedUnvisitedNodes.shift();
@@ -20,7 +22,7 @@ function dijkstra(grid, startNode, endNode) {
         //if encounter a wall we skip it aka move around
         //maybe add a isWall
 
-        //if surronding nodes is infinity then just return visitedNodes
+        //if closest node is infinity then just return visitedNodes
         if (closestNode.distance === Infinity) return visitedNodes
 
         closestNode.isVisited = true;
@@ -41,6 +43,10 @@ function dijkstra(grid, startNode, endNode) {
 
 function updateUnvisitedNeighbors(node, grid) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
+  for (const neighbor of unvisitedNeighbors) {
+    neighbor.distance = node.distance + 1 //central node + 1 for surronding nodes
+    // neightbor.previousNode = node //set point to backtrack
+  }
 }
 
 function getUnvisitedNeighbors(node, grid) {
@@ -49,7 +55,9 @@ function getUnvisitedNeighbors(node, grid) {
 
     if (row > 0) neighbors.push(grid[row - 1][col]) //top
     if (row < grid.length - 1) neighbors.push(grid[row + 1][col]) // bottom
-    if (col > 0) neighbors.push(grid[row][col - 1])
+    if (col > 0) neighbors.push(grid[row][col - 1]) // left
+    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]) // right, grid[0] = row to access col
+    return neighbors.filter(node => !node.isVisited)
 }
 
 function sortNodesByDistance(unvistedNodes) {
