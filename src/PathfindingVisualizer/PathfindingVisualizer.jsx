@@ -30,27 +30,43 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
+
+  visualizeDijstra() {
+    const {grid} = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL]
+    const endNode = grid[END_NODE_ROW][END_NODE_COL]
+    const visitedNodesInOrder = dijkstra(grid, startNode, endNode)
+    const 
+  }
+
+
   render() {
     const { grid } = this.state;
     return (
+
+    <div>
+        <button onClick={() => this.visualizeDijkstra()}>
+            Visualize Dijkstra's Algorithm
+        </button>
       <div className="grid">
         {grid.map((row, rowIdx) => {
-          return (
-            <div>
+            return (
+                <div>
               {row.map((node, nodeIdx) => {
-                const { isStart, isFinish } = node;
-                return (
-                  <Node
-                    key={nodeIdx}
-                    isStart={isStart}
-                    isFinish={isFinish}
-                  ></Node>
-                );
-              })}
+                  const { isStart, isFinish } = node;
+                  return (
+                      <Node
+                      key={nodeIdx}
+                      isStart={isStart}
+                      isFinish={isFinish}
+                      ></Node>
+                      );
+                    })}
             </div>
           );
         })}
       </div>
+    </div>
     );
   }
 }

@@ -20,10 +20,11 @@ function dijkstra(grid, startNode, endNode) {
         const closestNode = sortedUnvisitedNodes.shift();
 
         //if encounter a wall we skip it aka move around
-        //maybe add a isWall
 
-        //if closest node is infinity then just return visitedNodes
-        if (closestNode.distance === Infinity) return visitedNodes
+        // if (closestNode.isWall) continue
+
+        //case of being trapped
+        // if (closestNode.distance === Infinity) return visitedNodes
 
         closestNode.isVisited = true;
         visitedNodes.push(closestNode)
@@ -75,3 +76,17 @@ function getAllNodes(grid) {
     }
     return nodes
 }
+
+
+export function getNodesInShortestPathOrder(endNode) {
+    const nodesInShortestPathOrder = []
+    let currentNode = endNode
+    while (currentNode) {
+        nodesInShortestPathOrder.unshift(currentNode)
+        // currentNode = currentNode.previousNode
+    }
+
+    return nodesInShortestPathOrder
+}
+
+
