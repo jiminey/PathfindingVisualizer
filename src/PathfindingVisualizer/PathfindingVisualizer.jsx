@@ -19,21 +19,8 @@ export default class PathfindingVisualizer extends Component {
 
   componentDidMount() {
     //initialize grid
-    const grid = [];
-    for (let row = 0; row < 20; row++) {
-      const currentRow = [];
-      for (let col = 0; col < 50; col++) {
-        const currentNode = {
-          col,
-          row,
-          isStart: row === 10 && col === 5, //isStart return boolean if row=10 col=5
-          isFinish: row === 15 && col === 45
-        };
-        currentRow.push(currentNode);
-      }
-      grid.push(currentRow);
-    }
-    this.setState({ grid });
+    const grid = this.initializeGrid()
+    this.setState({grid: grid})
   }
 
 
@@ -62,6 +49,30 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
+  initializeGrid() {
+    const grid = [];
+    for (let row = 0; row < 20; row++) {
+      const currentRow = [];
+      for (let col = 0; col < 50; col++) {
+        currentRow.push(createNode(row, col));
+      }
+      grid.push(currentRow);
+    }
+    return grid
+  }
+
+  createNode(row, col) {
+    return {
+      row,
+      col,
+      isWall: false,
+      isStart: row === START_NODE_ROW && col === START_NODE_COL,
+      isFinish: row === END_NODE_ROW && col === END_NODE_COL, 
+      distance: Infinity,
+      isVisited: false, 
+      previousNode: null,
+    }
+  }
 
   render() {
     const { grid } = this.state;
@@ -74,14 +85,21 @@ export default class PathfindingVisualizer extends Component {
       <div className="grid">
         {grid.map((row, rowIdx) => {
             return (
-                <div>
+                <div key={rowIdx}>
               {row.map((node, nodeIdx) => {
-                  const { isStart, isFinish } = node;
+                  const { isStart, isFinish, isWall } = node;
                   return (
                       <Node
                       key={nodeIdx}
+                      col={col}
+                      row={row}
                       isStart={isStart}
                       isFinish={isFinish}
+                      isWall={isWall}
+                      isPressed={isPressed}
+                      isMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      isMouseClick={(row, col) => this.handleMouseClick(row, col)}
+                      isMouseUp={(row, col) => this.handleMouseUp(row, col)}
                       ></Node>
                       );
                     })}
