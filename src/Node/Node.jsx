@@ -15,14 +15,16 @@ export default class Node extends Component {
       isWall,
       onMouseDown,
       onMouseClick,
-      onMouseUp,
+      onMouseUp
     } = this.props;
     //triple ternary
-    const extraClassName = 
-    isFinish ? "node-finish" 
-    : isStart ? "node-start" 
-    : isWall ? 'node-wall'
-    : "";
+    const extraClassName = isFinish
+      ? "node-finish"
+      : isStart
+      ? "node-start"
+      : isWall
+      ? "node-wall"
+      : "";
 
     return (
       <div
@@ -30,7 +32,8 @@ export default class Node extends Component {
         className={`node ${extraClassName}`}
         onMouseDown={() => onMouseDown(row, col)}
         onMouseClick={() => onMouseClick(row, col)}
-        onMouseUp={() => onMouseUp()}></div>
-    )
+        onMouseUp={() => onMouseUp()}
+      ></div>
+    );
   }
 }

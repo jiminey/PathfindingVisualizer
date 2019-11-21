@@ -15,7 +15,7 @@
 
 .node-visited {
   animation-name: visitedAnimation;
-  animation-duration: 1.5s;
+  animation-duration: 2s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -42,7 +42,7 @@
 
   100% {
     transform: scale(1);
-    background-color: mediumaquamarine;
+    background-color: cadetblue;
   }
 }
 
