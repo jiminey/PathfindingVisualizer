@@ -1,6 +1,4 @@
 export function dijkstra(grid, startNode, endNode) {
-    if (!startNode || !endNode || startNode === endNode) return false
-
     const visitedNodes = []
     startNode.distance = 0
 
@@ -13,11 +11,10 @@ export function dijkstra(grid, startNode, endNode) {
         const closestNode = sortedUnvisitedNodes.shift();
 
         //if encounter a wall we skip it aka move around
-
-        // if (closestNode.isWall) continue
+        if (closestNode.isWall) continue;
 
         //case of being trapped
-        // if (closestNode.distance === Infinity) return visitedNodes
+        if (closestNode.distance === Infinity) return visitedNode;
 
         closestNode.isVisited = true;
         visitedNodes.push(closestNode)
