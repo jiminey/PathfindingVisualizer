@@ -39,18 +39,25 @@ export default class PathfindingVisualizer extends Component {
         if (i === visitedNodesInOrder.length) {
             setTimeout(() => {
                 this.animateShortestPath(nodesInShortestPathOrder)
-            }, 10 * i)
+            }, 50 * i)
             return
         } else {
             setTimeout(() => {
                 const node = visitedNodesInOrder[i]
-                // document.getElementById
-            })
+                node.style.background = "red";
+                node.style.color = "red";
+            }, 50 * i);    
         }
     }
   }
 
   animateShortestPath(nodesInShortestPathOrder) {
+    for (let i = 0; i < nodesInShortestPathOrder; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        node.style.background = 'green'
+      }, 50 * 1)
+    }
     return;
   }
 
