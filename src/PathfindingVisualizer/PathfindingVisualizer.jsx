@@ -13,7 +13,8 @@ export default class PathfindingVisualizer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: []
+      grid: [],
+      isMousePressed: false,
     };
   }
 
@@ -54,25 +55,40 @@ export default class PathfindingVisualizer extends Component {
     for (let row = 0; row < 20; row++) {
       const currentRow = [];
       for (let col = 0; col < 50; col++) {
-        currentRow.push(createNode(row, col));
+        currentRow.push(this.createNode(row, col));
       }
       grid.push(currentRow);
     }
     return grid
   }
 
+  handleMouseDown(row, col) {
+    //holding down mouse
+    const newGrid = setWalls(this.state.grid, row, col)
+    this.setState({grid: newGrid, isMousePressed: true})
+  }
 
   handleMouseClick() {
-  
+    //clicking once
+    if (!this.state.isMousePressed) return;
+    const newGrid = setWalls(this.state.grid, row ,col)
+    this.setState({grid: newGrid})
   }
 
-  handleMouseDown() {
-      //toggle nodes to iswall true
-    //intialize new grid with wall toggles
-  }
 
   handleMouseUp() {
+    this.setState(isMousePressed: true)
+  }
 
+  setWalls(grid, row, col) {
+    const newGrid = grid.slice(0)
+    const node = newGrid[row][col]
+    const newNode = {
+      ...node,
+      isWall: !node.isWall
+    }
+    newGrid[row][col] = newNode
+    return newGrid
   }
 
   createNode(row, col) {
@@ -101,7 +117,7 @@ export default class PathfindingVisualizer extends Component {
             return (
                 <div key={rowIdx}>
               {row.map((node, nodeIdx) => {
-                  const { isStart, isFinish, isWall } = node;
+                  const { isStart, isFinish, isWall, col, row } = node;
                   return (
                       <Node
                       key={nodeIdx}
@@ -110,10 +126,10 @@ export default class PathfindingVisualizer extends Component {
                       isStart={isStart}
                       isFinish={isFinish}
                       isWall={isWall}
-                      isPressed={isPressed}
-                      isMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      isMouseClick={(row, col) => this.handleMouseClick(row, col)}
-                      isMouseUp={(row, col) => this.handleMouseUp(row, col)}
+                      isMousePressed={isMousePressed}
+                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      onMouseClick={(row, col) => this.handleMouseClick(row, col)}
+                      onMouseUp={(row, col) => this.handleMouseUp(row, col)}
                       ></Node>
                       );
                     })}
