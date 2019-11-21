@@ -13,15 +13,15 @@ export default class Node extends Component {
       isStart,
       isFinish,
       isWall,
-      isMousePressed,
       onMouseDown,
       onMouseClick,
       onMouseUp,
     } = this.props;
     //triple ternary
-    const endPointNode = 
+    const extraClassName = 
     isFinish ? "node-finish" 
     : isStart ? "node-start" 
+    : isWall ? 'node-wall'
     : "";
 
     return (
