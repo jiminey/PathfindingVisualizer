@@ -61,6 +61,20 @@ export default class PathfindingVisualizer extends Component {
     return grid
   }
 
+
+  handleMouseClick() {
+  
+  }
+
+  handleMouseDown() {
+      //toggle nodes to iswall true
+    //intialize new grid with wall toggles
+  }
+
+  handleMouseUp() {
+
+  }
+
   createNode(row, col) {
     return {
       row,
