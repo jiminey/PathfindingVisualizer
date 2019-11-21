@@ -36,7 +36,7 @@ function updateUnvisitedNeighbors(node, grid) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
   for (const neighbor of unvisitedNeighbors) {
     neighbor.distance = node.distance + 1 //central node + 1 for surronding nodes
-    neightbor.previousNode = node //set point to backtrack
+    neighbor.previousNode = node //set point to backtrack
   }
 }
 
