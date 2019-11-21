@@ -7,15 +7,30 @@ export default class Node extends Component {
     this.state = {};
   }
   render() {
-    const { isStart, isFinish } = this.props;
+    const {
+      col,
+      row,
+      isStart,
+      isFinish,
+      isWall,
+      isMousePressed,
+      onMouseDown,
+      onMouseClick,
+      onMouseUp,
+    } = this.props;
     //triple ternary
-    const endPointNode = isFinish ? "node-finish" : isStart ? "node-start" : "";
+    const endPointNode = 
+    isFinish ? "node-finish" 
+    : isStart ? "node-start" 
+    : "";
 
-    return <div className={`node ${endPointNode}`}></div>;
+    return (
+      <div
+        id={`node-${row}-${col}`}
+        className={`node ${extraClassName}`}
+        onMouseDown={() => onMouseDown(row, col)}
+        onMouseClick={() => onMouseClick(row, col)}
+        onMouseUp={() => onMouseUp()}></div>
+    )
   }
 }
-
-export const DEFAULT_NODE = {
-  row: 0,
-  col: 0
-};
