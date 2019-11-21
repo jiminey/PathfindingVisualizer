@@ -50,6 +50,10 @@ export default class PathfindingVisualizer extends Component {
     }
   }
 
+  animateShortestPath(nodesInShortestPathOrder) {
+    return;
+  }
+
   initializeGrid() {
     const grid = [];
     for (let row = 0; row < 20; row++) {
@@ -64,20 +68,20 @@ export default class PathfindingVisualizer extends Component {
 
   handleMouseDown(row, col) {
     //holding down mouse
-    const newGrid = setWalls(this.state.grid, row, col)
+    const newGrid = this.setWalls(this.state.grid, row, col)
     this.setState({grid: newGrid, isMousePressed: true})
   }
 
-  handleMouseClick() {
+  handleMouseClick(row, col) {
     //clicking once
     if (!this.state.isMousePressed) return;
-    const newGrid = setWalls(this.state.grid, row ,col)
+    const newGrid = this.setWalls(this.state.grid, row ,col)
     this.setState({grid: newGrid})
   }
 
 
   handleMouseUp() {
-    this.setState(isMousePressed: true)
+    this.setState({isMousePressed: true})
   }
 
   setWalls(grid, row, col) {
@@ -126,7 +130,7 @@ export default class PathfindingVisualizer extends Component {
                       isStart={isStart}
                       isFinish={isFinish}
                       isWall={isWall}
-                      isMousePressed={isMousePressed}
+                      isMousePressed={this.state.isMousePressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
                       onMouseClick={(row, col) => this.handleMouseClick(row, col)}
                       onMouseUp={(row, col) => this.handleMouseUp(row, col)}
