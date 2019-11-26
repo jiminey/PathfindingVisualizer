@@ -36,6 +36,7 @@ export default class PathfindingVisualizer extends Component {
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
+        console.log(i)
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
         }, 15 * i);
@@ -56,9 +57,8 @@ export default class PathfindingVisualizer extends Component {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-shortest-path";
-      }, 15 * 1);
+      }, 50 * i);
     }
-    return;
   }
 
   initializeGrid() {
@@ -66,7 +66,7 @@ export default class PathfindingVisualizer extends Component {
     for (let row = 0; row < 20; row++) {
       const currentRow = [];
       for (let col = 0; col < 50; col++) {
-        currentRow.push(this.createNode(row, col));
+        currentRow.push(createNode(row, col));
       }
       grid.push(currentRow);
     }
@@ -75,43 +75,19 @@ export default class PathfindingVisualizer extends Component {
 
   handleMouseDown(row, col) {
     //holding down mouse
-    const newGrid = this.setWalls(this.state.grid, row, col);
+    const newGrid = setWalls(this.state.grid, row, col);
     this.setState({ grid: newGrid, isMousePressed: true });
   }
 
   handleMouseClick(row, col) {
     //clicking once
     if (!this.state.isMousePressed) return;
-    const newGrid = this.setWalls(this.state.grid, row, col);
+    const newGrid = setWalls(this.state.grid, row, col);
     this.setState({ grid: newGrid });
   }
 
   handleMouseUp() {
-    this.setState({ isMousePressed: true });
-  }
-
-  setWalls(grid, row, col) {
-    const newGrid = grid.slice(0);
-    const node = newGrid[row][col];
-    const newNode = {
-      ...node,
-      isWall: !node.isWall
-    };
-    newGrid[row][col] = newNode;
-    return newGrid;
-  }
-
-  createNode(row, col) {
-    return {
-      row,
-      col,
-      isWall: false,
-      isStart: row === START_NODE_ROW && col === START_NODE_COL,
-      isFinish: row === END_NODE_ROW && col === END_NODE_COL,
-      distance: Infinity,
-      isVisited: false,
-      previousNode: null
-    };
+    this.setState({ isMousePressed: false });
   }
 
   render() {
@@ -151,4 +127,28 @@ export default class PathfindingVisualizer extends Component {
       </div>
     );
   }
+}
+
+const setWalls = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+  const newNode = {
+    ...node,
+    isWall: !node.isWall
+  };
+  newGrid[row][col] = newNode;
+  return newGrid;
+}
+
+const createNode = (row, col) => {
+    return {
+      row,
+      col,
+      isWall: false,
+      isStart: row === START_NODE_ROW && col === START_NODE_COL,
+      isFinish: row === END_NODE_ROW && col === END_NODE_COL,
+      distance: Infinity,
+      isVisited: false,
+      previousNode: null
+  };
 }
