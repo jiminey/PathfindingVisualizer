@@ -35,24 +35,24 @@ export default class PathfindingVisualizer extends Component {
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      console.log(i)
       if (i === visitedNodesInOrder.length) {
-        console.log(i)
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
         }, 15 * i);
         return;
-      } else {
-        setTimeout(() => {
-          const node = visitedNodesInOrder[i];
-          document.getElementById(`node-${node.row}-${node.col}`).className =
-            "node node-visited";
-        }, 15 * i);
-      }
+      } 
+  
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-visited";
+      }, 15 * i);
     }
   }
 
   animateShortestPath(nodesInShortestPathOrder) {
-    for (let i = 0; i < nodesInShortestPathOrder; i++) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
