@@ -91,7 +91,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    const { grid } = this.state;
+    const { grid, isMousePressed } = this.state;
     return (
       <div>
         <button onClick={() => this.visualizeDijkstra()}>
@@ -111,7 +111,7 @@ export default class PathfindingVisualizer extends Component {
                       isStart={isStart}
                       isFinish={isFinish}
                       isWall={isWall}
-                      isMousePressed={this.state.isMousePressed}
+                      isMousePressed={isMousePressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
                       onMouseClick={(row, col) =>
                         this.handleMouseClick(row, col)
