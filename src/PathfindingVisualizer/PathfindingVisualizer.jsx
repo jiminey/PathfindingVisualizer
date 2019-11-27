@@ -14,7 +14,7 @@ export default class PathfindingVisualizer extends Component {
     super(props);
     this.state = {
       grid: [],
-      isMousePressed: false
+      isMousePressed: false,
     };
   }
 
@@ -25,7 +25,16 @@ export default class PathfindingVisualizer extends Component {
   }
 
   visualizeDijkstra() {
-    const { grid } = this.state;
+    const { grid } = this.state
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const endNode = grid[END_NODE_ROW][END_NODE_COL];
+    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
+    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+  }
+  
+  visualizeAstar() {
+    const { grid } = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
@@ -35,19 +44,17 @@ export default class PathfindingVisualizer extends Component {
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
-      console.log(i)
       if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
         }, 15 * i);
-        return;
-      } 
-  
-      setTimeout(() => {
-        const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
-      }, 15 * i);
+      } else {
+        setTimeout(() => {
+          const node = visitedNodesInOrder[i];
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+        }, 15 * i);
+      }
     }
   }
 
@@ -121,6 +128,9 @@ export default class PathfindingVisualizer extends Component {
       <div>
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
+        </button>
+        <button onClick={() => this.visualizeAstar()}>
+          Visualize A-star's Algorithm
         </button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
