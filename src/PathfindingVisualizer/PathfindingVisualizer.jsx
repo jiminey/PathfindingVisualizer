@@ -77,7 +77,10 @@ export default class PathfindingVisualizer extends Component {
       isFinish: row === END_NODE_ROW && col === END_NODE_COL,
       distance: Infinity,
       isVisited: false,
-      previousNode: null
+      previousNode: null,
+      gCost: Infinity,
+      hCost: Infinity,
+      fCost: Infinity, 
     };
   }
 
