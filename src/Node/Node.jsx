@@ -14,8 +14,8 @@ export default class Node extends Component {
       isFinish,
       isWall,
       onMouseDown,
-      onMouseClick,
-      onMouseUp
+      onMouseUp,
+      onMouseEnter,
     } = this.props;
     //triple ternary
     const extraClassName = isFinish
@@ -31,8 +31,8 @@ export default class Node extends Component {
         id={`node-${row}-${col}`}
         className={`node ${extraClassName}`}
         onMouseDown={() => onMouseDown(row, col)}
-        onMouseClick={() => onMouseClick(row, col)}
         onMouseUp={() => onMouseUp()}
+        onMouseEnter={() => onMouseEnter(row, col)}
       ></div>
     );
   }

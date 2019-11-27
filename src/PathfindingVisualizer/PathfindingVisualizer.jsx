@@ -100,17 +100,17 @@ export default class PathfindingVisualizer extends Component {
     //holding down mouse
     const newGrid = this.setWalls(this.state.grid, row, col);
     this.setState({ grid: newGrid, isMousePressed: true });
-  }
-
-  handleMouseClick(row, col) {
-    //clicking once
-    if (!this.state.isMousePressed) return;
-    const newGrid = this.setWalls(this.state.grid, row, col);
-    this.setState({ grid: newGrid });
+    console.log('in mousedown')
   }
 
   handleMouseUp() {
     this.setState({ isMousePressed: false });
+  }
+
+  handleMouseEnter(row, col) {
+    if (!this.state.isMousePressed) return;
+    const newGrid = this.setWalls(this.state.grid, row, col);
+    this.setState({ grid: newGrid });
   }
 
   setWalls = (grid, row, col) => {
@@ -151,8 +151,8 @@ export default class PathfindingVisualizer extends Component {
                       isWall={isWall}
                       isMousePressed={isMousePressed}
                       onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseClick={(row, col) =>
-                        this.handleMouseClick(row, col)
+                      onMouseEnter={(row, col) =>
+                        this.handleMouseEnter(row, col)
                       }
                       onMouseUp={(row, col) => this.handleMouseUp(row, col)}
                     ></Node>
