@@ -9,18 +9,18 @@ export function astar(grid, startNode, endNode) {
     
        const  sortedOpenListByFCost = sortOpenListByFCost(openList)        
         // get minimum f-cost node
-       const currentNode = sortedOpenListByFCost.shift();
+       const closestNode = sortedOpenListByFCost.shift();
 
         //end case
-       if (currentNode === endNode) return closedList
+       if (closestNode === endNode) return closedList
        
-        //currentNode = lowest f in openList
-            //let currentNode = openList.shift() 
+        //closestNode = lowest f in openList
+            //let closestNode = openList.shift() 
 
-        // push currentNode onto closedList and remove from openList
-        closedList.push(currentNode)
+        // push closestNode onto closedList and remove from openList
+        closedList.push(closestNode)
 
-        let unvistedNeighbors = getUnvisitedNeighbors()
+        let unvistedNeighbors = getUnvisitedNeighbors(closestNode, grid)
 
         for (let neighbor of unvistedNeighbors) {
             if (!openList.includes(neighbor)) {
@@ -35,7 +35,7 @@ export function astar(grid, startNode, endNode) {
             
 
         }
-        // foreach neighbor of currentNode {
+        // foreach neighbor of closestNode {
         //     if neighbor is not in openList {
         //         save g, h, and f then save the current parent
         //         add neighbor to openList
@@ -56,10 +56,10 @@ function sortOpenListByFCost(openListArray) {
 
 export function getNodesInShortestPathOrder(endNode) {
     const nodesInShortestPathOrder = []
-    let currentNode = endNode
-    while (currentNode !== null) {
-        nodesInShortestPathOrder.unshift(currentNode)
-        currentNode = currentNode.previousNode
+    let closestNode = endNode
+    while (closestNode !== null) {
+        nodesInShortestPathOrder.unshift(closestNode)
+        closestNode = closestNode.previousNode
     }
 
     return nodesInShortestPathOrder
