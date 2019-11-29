@@ -23,8 +23,17 @@ export function astar(grid, startNode, endNode) {
         let unvistedNeighbors = getUnvisitedNeighbors(closestNode, grid)
 
         for (let neighbor of unvistedNeighbors) {
+
+            if (openList.includes(neighbor) || neighbor.isWall) continue;
+
+            // gCost is the shortest distance from start and closestNode
+            let gCost = currentNode.gCost + 1;
+            let isGCostBest = false;
+            
             if (!openList.includes(neighbor)) {
                 //save g, h, f then save the currentParent
+                isGCostBest = true;
+                neighbor.h = heuristic(startNode.x, startNode.y, endNode.x, endNode.y)
                 openList.push(neighbor)
             }
             if (openList.includes(neighbor) 
@@ -48,7 +57,9 @@ export function astar(grid, startNode, endNode) {
     }
 }
 
-
+function heuristic(startX, startY, endX, endY) {
+    return;
+}
 
 function sortOpenListByFCost(openListArray) {
     return openListArray.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
