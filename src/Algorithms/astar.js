@@ -58,9 +58,8 @@ export function astar(grid, startNode, endNode) {
 }
 
 function heuristic(startX, startY, endX, endY) {
-
-    // Utilize the Manhattan Distanc -- allows for 4 directional movement
-    return;
+    // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
+    return Math.abs(startX - endX) + Math.abs(startY - endY)
 }
 
 function sortOpenListByFCost(openListArray) {
