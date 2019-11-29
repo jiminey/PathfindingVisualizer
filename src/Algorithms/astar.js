@@ -4,6 +4,10 @@ export function astar(grid, startNode, endNode) {
     openList.push(startNode)
 
     while (!!openList.length) {
+    
+        let sortedOpenList = sortOpenListByFCost(openList) 
+       let currentNode = Math.min(...openList)
+       
         //currentNode = lowest f in openList
             //let currentNode = openList.shift() 
 
@@ -41,5 +45,9 @@ export function astar(grid, startNode, endNode) {
 
 function getNodeNeighbors() {
     return;
+}
+
+function sortOpenListByFCost(openListArray) {
+    openListArray.sort()
 }
 
