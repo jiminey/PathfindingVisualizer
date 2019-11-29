@@ -58,6 +58,8 @@ export function astar(grid, startNode, endNode) {
 }
 
 function heuristic(startX, startY, endX, endY) {
+
+    // Utilize the Manhattan Distanc -- allows for 4 directional movement
     return;
 }
 
