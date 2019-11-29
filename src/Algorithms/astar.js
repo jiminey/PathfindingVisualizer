@@ -18,6 +18,13 @@ export function astar(grid, startNode, endNode) {
                 //save g, h, f then save the currentParent
                 openList.push(neighbor)
             }
+            if (openList.includes(neighbor) 
+            // && current g is better than previous g
+            ) {
+                 //save g  and f , then save the currentParent
+            }
+            
+
         }
         // foreach neighbor of currentNode {
         //     if neighbor is not in openList {
