@@ -38,7 +38,7 @@ function updateUnvisitedNeighbors(node, grid) {
   }
 }
 
-function getUnvisitedNeighbors(node, grid) {
+export function getUnvisitedNeighbors(node, grid) {
     const neighbors = []
     const {row, col} = node
 

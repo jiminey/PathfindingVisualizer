@@ -1,3 +1,5 @@
+import { getNodesInShortestPathOrder, getUnvisitedNeighbors } from './dijkstras' 
+
 export function astar(grid, startNode, endNode) {
     const openList = [];
     const closedList = [];
@@ -5,19 +7,22 @@ export function astar(grid, startNode, endNode) {
 
     while (!!openList.length) {
     
-        let sortedOpenList = sortOpenListByFCost(openList) 
-       let currentNode = Math.min(...openList)
+       const  sortedOpenListByFCost = sortOpenListByFCost(openList)        
+        // get minimum f-cost node
+       const currentNode = sortedOpenListByFCost.shift();
+
+        //end case
+       if (currentNode === endNode) return closedList
        
         //currentNode = lowest f in openList
             //let currentNode = openList.shift() 
 
         // push currentNode onto closedList and remove from openList
-            closedList.push(currentNode)
+        closedList.push(currentNode)
 
+        let unvistedNeighbors = getUnvisitedNeighbors()
 
-        let nodeNeighbors = this.getNodeNeighbors()
-
-        for (let neighbor of nodeNeighbors) {
+        for (let neighbor of unvistedNeighbors) {
             if (!openList.includes(neighbor)) {
                 //save g, h, f then save the currentParent
                 openList.push(neighbor)
@@ -43,11 +48,19 @@ export function astar(grid, startNode, endNode) {
     }
 }
 
-function getNodeNeighbors() {
-    return;
-}
+
 
 function sortOpenListByFCost(openListArray) {
     return openListArray.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
 }
 
+export function getNodesInShortestPathOrder(endNode) {
+    const nodesInShortestPathOrder = []
+    let currentNode = endNode
+    while (currentNode !== null) {
+        nodesInShortestPathOrder.unshift(currentNode)
+        currentNode = currentNode.previousNode
+    }
+
+    return nodesInShortestPathOrder
+}
