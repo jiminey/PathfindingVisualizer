@@ -1,4 +1,4 @@
-import { getNodesInShortestPathOrder, getUnvisitedNeighbors } from './dijkstras' 
+import { getUnvisitedNeighbors } from './dijkstras' 
 
 export function astar(grid, startNode, endNode) {
     const openList = [];
@@ -52,15 +52,4 @@ export function astar(grid, startNode, endNode) {
 
 function sortOpenListByFCost(openListArray) {
     return openListArray.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
-}
-
-export function getNodesInShortestPathOrder(endNode) {
-    const nodesInShortestPathOrder = []
-    let closestNode = endNode
-    while (closestNode !== null) {
-        nodesInShortestPathOrder.unshift(closestNode)
-        closestNode = closestNode.previousNode
-    }
-
-    return nodesInShortestPathOrder
 }
