@@ -48,6 +48,6 @@ function getNodeNeighbors() {
 }
 
 function sortOpenListByFCost(openListArray) {
-    openListArray.sort()
+    return openListArray.sort((a,b) => { a.fCost - b.fCost })
 }
 
