@@ -139,8 +139,8 @@ export default class PathfindingVisualizer extends Component {
     newGrid[row][col] = newNode; 
 
     //prevent walls from start and end node
-    newGRid[START_NODE_ROW][START_NODE_COL].isWall = false;
-    newGRid[END_NODE_ROW][END_NODE_COL].isWall = false;
+    newGrid[START_NODE_ROW][START_NODE_COL].isWall = false;
+    newGrid[END_NODE_ROW][END_NODE_COL].isWall = false;
     
     return newGrid;
   }
