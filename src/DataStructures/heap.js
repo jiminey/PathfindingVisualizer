@@ -9,6 +9,7 @@ export default class MinHeap {
     for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
       this.siftDown(currentIdx, array.length - 1, array);
     }
+    this.count = array.length
     return array;
   }
 
