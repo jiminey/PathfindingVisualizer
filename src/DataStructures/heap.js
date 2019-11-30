@@ -8,7 +8,6 @@ export default class MinHeap {
     const firstParentIdx = Math.floor((array.length - 2) / 2);
     for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
       this.siftDown(currentIdx, array.length - 1, array);
-      this.count += 1;
     }
     return array;
   }
@@ -66,16 +65,15 @@ export default class MinHeap {
     this.count += 1;
   }
 
-  length() {
+  count() {
     return this.count;
   }
 
   search(node) {
-    let flag = false;
-    for (let i = 0; i < this.heap.length - 1; i++) {
-      if (this.heap[i] === node) flag = true;
+    for (let item of this.heap) {
+        if (item === node) return true;
     }
-    return flag;
+    return false;
   }
 
   swap(i, j, heap) {

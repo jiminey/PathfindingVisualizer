@@ -7,8 +7,8 @@ export function astar(grid, startNode, endNode) {
   startNode.gCost = 0;
   const openList = new MinHeap([]);
   openList.insert(startNode);
-  
-  while (!!openList.length) {
+
+  while (!!openList.count) {
     const closestNode = openList.remove();
 
     closedList.push(closestNode);
