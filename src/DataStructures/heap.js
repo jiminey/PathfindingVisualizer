@@ -1,64 +1,72 @@
 export default class MinHeap {
-    constructor(array){
-        this.heap = this.buildHeap(array);
-    }
-    
-    buildHeap(array){
-        let firstParentIdx = Math.floor((array.length - 2) / 2)
-        for (const currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
-            this.siftDown(0, array.length - 1, array)
-        }
-        return array
-    }
+  constructor(array) {
+    this.heap = this.buildHeap(array);
+    this.count = 0;
+  }
 
-    siftDown(currentIdx, endIdx, heap){
-        let childOneIdx = currentIdx * 2 + 1
-        while (childOneIdx <= endIdx) {
-            const childTwoIdx = 
-                childTwoIdx * 2 + 2 <= endIdx ? childTwoIdx * 2 + 2 : -1
-            let idxToSwap;
-            if (childTwoIdx !== -1 && heap[childTwoIdx] < heap[childOneIdx]) {
-                idxToSwap = childTwoIdx
-            } else {
-                idxToSwap = childOneIdx
-            }
-            
-            if (heap[idxToSwap] < heap[currentIdx]){
-                this.swap(idxToSwap, currentIdx, heap)
-                currentIdx = idxToSwap;
-                childOneIdx = currentIdx * 2 + 1
-            } else {
-                return;
-            }
-        }
+  buildHeap(array) {
+    let firstParentIdx = Math.floor((array.length - 2) / 2);
+    for (const currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+      this.siftDown(0, array.length - 1, array);
+      this.count += 1;
     }
+    return array;
+  }
 
-    siftUp(currentIdx, heap){
-        let parentIdx = Math.floor((currentIdx - 1) / 2)
-        while (parentIdx > 0 && heap[currentIdx] < heap[parentIdx]) {
-            this.swap(currentIdx, parentIdx, heap)
-            currentIdx = parentIdx
-            parentIdx = Math.floor((currentIdx - 1) / 2)
-        }
-    }
+  siftDown(currentIdx, endIdx, heap) {
+    let childOneIdx = currentIdx * 2 + 1;
+    while (childOneIdx <= endIdx) {
+      const childTwoIdx =
+        childTwoIdx * 2 + 2 <= endIdx ? childTwoIdx * 2 + 2 : -1;
+      let idxToSwap;
+      if (childTwoIdx !== -1 && heap[childTwoIdx] < heap[childOneIdx]) {
+        idxToSwap = childTwoIdx;
+      } else {
+        idxToSwap = childOneIdx;
+      }
 
-    peek() {
-        return this.heap[0]
+      if (heap[idxToSwap] < heap[currentIdx]) {
+        this.swap(idxToSwap, currentIdx, heap);
+        currentIdx = idxToSwap;
+        childOneIdx = currentIdx * 2 + 1;
+      } else {
+        return;
+      }
     }
+  }
 
-    remove() {
-        this.swap(0, this.heap.length - 1, this.heap)
-        let removedNode = this.heap.pop()
-        this.siftDown(0, this.heap.length - 1, this.heap)
-        return removedNode
+  siftUp(currentIdx, heap) {
+    let parentIdx = Math.floor((currentIdx - 1) / 2);
+    while (parentIdx > 0 && heap[currentIdx] < heap[parentIdx]) {
+      this.swap(currentIdx, parentIdx, heap);
+      currentIdx = parentIdx;
+      parentIdx = Math.floor((currentIdx - 1) / 2);
     }
+  }
 
-    insert(value) { 
-        this.heap.push(value)
-        this.siftUp(this.heap.length - 1, this.heap)
-    }
+  peek() {
+    return this.heap[0];
+  }
 
-    swap(i ,j, heap) {
-        [heap[i], heap[j]] = [heap[j], heap[i]]
-    }
+  remove() {
+    this.swap(0, this.heap.length - 1, this.heap);
+    let removedNode = this.heap.pop();
+    this.siftDown(0, this.heap.length - 1, this.heap);
+    this.count -= 1;
+    return removedNode;
+  }
+
+  insert(value) {
+    this.heap.push(value);
+    this.siftUp(this.heap.length - 1, this.heap);
+    this.count += 1;
+  }
+
+  length() {
+    return this.count;
+  }
+
+  swap(i, j, heap) {
+    [heap[i], heap[j]] = [heap[j], heap[i]];
+  }
 }
