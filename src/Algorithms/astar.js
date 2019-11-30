@@ -34,7 +34,8 @@ function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
 
         neighbor.gCost = node.gCost + 1
         neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
-
+        neighbor.fCost = neighbor.gCost + neighbor.hCost
+        neighbor.previousNode = node
     }
 }
 
