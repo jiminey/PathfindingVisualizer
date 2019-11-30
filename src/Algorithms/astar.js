@@ -1,7 +1,6 @@
 import { getUnvisitedNeighbors } from './dijkstras' 
 
 export function astar(grid, startNode, endNode) {
-
     // Initialize
     const closedList = [];
     startNode.gCost = 0;
@@ -12,22 +11,23 @@ export function astar(grid, startNode, endNode) {
 
     while(!!openList.length) {
         sortNodesByFCost(openList)
+
         const closestNode = openList.shift();
-
+        closestNode.isVisited = true;
         closedList.push(closestNode)
-
         // if (closestNode.fCost = Infinity) return closedList; 
 
         if (closestNode === endNode) return closedList; 
-
-        updateUnvisitedNeighbors(closestNode, grid, startNode, endNode, closedList, openList)
+        updateUnvisitedNeighbors(closestNode, grid, endNode, closedList, openList)
     }
 }
 
-function updateUnvisitedNeighbors(node, grid, startNode, endNode, closedList, openList) {
+function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
     for (const neighbor of unvisitedNeighbors) {
         // neighbor is in closedList
+
+
         if (closedList.includes(neighbor) || neighbor.isWall) continue; 
         
         // if neighbor is already in openList
@@ -42,7 +42,7 @@ function updateUnvisitedNeighbors(node, grid, startNode, endNode, closedList, op
             }
         }  else {
             neighbor.gCost = node.gCost + 1
-            neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
+            neighbor.hCost = manhattanHeuristic(neighbor, endNode)
             neighbor.fCost = neighbor.gCost + neighbor.hCost
             isBestPath = true
             openList.push(neighbor);
@@ -51,14 +51,17 @@ function updateUnvisitedNeighbors(node, grid, startNode, endNode, closedList, op
 
         // append neighbor to open list
         if (isBestPath) neighbor.previousNode = node
+        // console.log(neighbor.fCost, neighbor.gCost, neighbor.hCost)
     }
 }
 
-function manhattanHeuristic(startX, startY, endX, endY) {
+function manhattanHeuristic(node, endNode) {
+    // h-cost = distance from node to endNode
     // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
-    return Math.abs(startX - endX) + Math.abs(startY - endY)
+    return Math.abs(node.row - endNode.row) + Math.abs(node.col - endNode.col)
+    
 }
 
-function sortNodesByFCost(unvisitedNodes) {
-    unvisitedNodes.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
+function sortNodesByFCost(openList) {
+    openList.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
 }
