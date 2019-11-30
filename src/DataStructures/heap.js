@@ -2,9 +2,15 @@ export default class MinHeap {
     constructor(array){
         this.heap = this.buildHeap(array);
     }
+    
     buildHeap(array){
-
+        let firstParentIdx = Math.floor((array.length - 2) / 2)
+        for (const currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+            this.siftDown(0, array.length - 1, array)
+        }
+        return array
     }
+
     siftDown(currentIdx, endIdx, heap){
         let childOneIdx = currentIdx * 2 + 1
         while (childOneIdx <= endIdx) {
