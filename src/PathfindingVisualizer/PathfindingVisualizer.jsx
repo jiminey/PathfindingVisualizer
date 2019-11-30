@@ -48,13 +48,13 @@ export default class PathfindingVisualizer extends Component {
       if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
-        }, 15 * i);
+        }, 10 * i);
       } else {
         setTimeout(() => {
           const node = visitedNodesInOrder[i];
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node node-visited";
-        }, 15 * i);
+        }, 10 * i);
       }
     }
   }
