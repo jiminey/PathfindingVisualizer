@@ -30,12 +30,20 @@ export function astar(grid, startNode, endNode) {
 function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
     for (const neighbor of unvisitedNeighbors) {
+        // neighbor is in closedList
         if (closedList.includes(neighbor)) continue; 
-
+        
+        // set g, h , and f 
         neighbor.gCost = node.gCost + 1
         neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
         neighbor.fCost = neighbor.gCost + neighbor.hCost
         neighbor.previousNode = node
+
+        // if neighbor is already in openList
+        if (openList.includes(neighbor)) continue; 
+        
+        // append neighbor to open list
+        openList.push(neighbor);
     }
 }
 
