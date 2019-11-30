@@ -1,26 +1,17 @@
 import { getUnvisitedNeighbors, getAllNodes } from './dijkstras' 
 
 export function astar(grid, startNode, endNode) {
-   const visitedNodes = []
-   startNode.distance = 0;
-   startNode.fCost = 0;
-   const unvisitedNodes = getAllNodes(grid);
 
-   while(!!unvisitedNodes.length) {
-       const sortedUnvisitedNodesByFCost = sortByFCost(unvisitedNodes)
-       const closestNode = sortedUnvisitedNodesByFCost.shift();
+    // Initialize
+    const closedList = [];
+    startNode.distance = 0;
+    const openList = [startNode];
 
-       if (closestNode.isWall) contine;
-
-       if (closestNode.distance = Infinity) return visitedNodes;
-
-       closestNode.isVisted = true;
-       visitedNodes.push(closestNode)
-
-       if (closestNode === endNode) return visitedNodes;
-
-       updateUnvisitedNeighbors(closestNode, grid, startNode, endNode)
-   }
+    while(!!openList.length) {
+        const sortedOpenList = sortByFCost(openList)
+        const closedNode = sortedOpenList.shift();
+    }
+    
 }
 
 function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
@@ -28,6 +19,7 @@ function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
     for (const neighbor of unvisitedNeighbors) {
         gCost = node.distance + 1
         neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
+
     }
 }
 
