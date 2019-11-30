@@ -11,10 +11,9 @@ export function astar(grid, startNode, endNode) {
 
     while(!!openList.length) {
         sortNodesByFCost(openList)
-
         const closestNode = openList.shift();
-        closestNode.isVisited = true;
         closedList.push(closestNode)
+        closestNode.isVisited = true;
         // if (closestNode.fCost = Infinity) return closedList; 
 
         if (closestNode === endNode) return closedList; 
@@ -27,31 +26,15 @@ function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
     for (const neighbor of unvisitedNeighbors) {
         // neighbor is in closedList
 
-
         if (closedList.includes(neighbor) || neighbor.isWall) continue; 
-        
-        // if neighbor is already in openList
-        
-        let isBestPath = false;
-        let tempF = node.gCost + 1
-        
-        if (openList.includes(neighbor)) {
-            if (tempF <= neighbor.fCost) {
-                neighbor.fCost = tempF
-                isBestPath = true
-            }
-        }  else {
-            neighbor.gCost = node.gCost + 1
-            neighbor.hCost = manhattanHeuristic(neighbor, endNode)
-            neighbor.fCost = neighbor.gCost + neighbor.hCost
-            isBestPath = true
-            openList.push(neighbor);
-        }
-        // set g, h , and f 
+    
+        neighbor.gCost = node.gCost + 1
+        neighbor.hCost = manhattanHeuristic(neighbor, endNode)
+        neighbor.fCost = neighbor.gCost + neighbor.hCost
+        neighbor.previousNode = node
 
-        // append neighbor to open list
-        if (isBestPath) neighbor.previousNode = node
-        // console.log(neighbor.fCost, neighbor.gCost, neighbor.hCost)
+        if (openList.includes(neighbor)) continue;
+        openList.push(neighbor);
     }
 }
 
