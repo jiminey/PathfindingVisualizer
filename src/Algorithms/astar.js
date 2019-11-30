@@ -3,6 +3,7 @@ import { getUnvisitedNeighbors, getAllNodes } from './dijkstras'
 export function astar(grid, startNode, endNode) {
    const visitedNodes = []
    startNode.distance = 0;
+   startNode.fCost = 0;
    const unvisitedNodes = getAllNodes(grid);
 
    while(!!unvisitedNodes.length) {
@@ -18,15 +19,15 @@ export function astar(grid, startNode, endNode) {
 
        if (closestNode === endNode) return visitedNodes;
 
-       updateUnvisitedNeighbors(closestNode, grid)
+       updateUnvisitedNeighbors(closestNode, grid, startNode, endNode)
    }
 }
 
-function updateUnvisitedNeighbors(node, grid) {
+function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
     for (const neighbor of unvisitedNeighbors) {
-        neighbor.distance = node.distance + 1 //central node + 1 for surronding nodes
-        neighbor.previousNode = node //set point to backtrack
+        gCost = node.distance + 1
+        neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
     }
 }
 
