@@ -5,9 +5,9 @@ export default class MinHeap {
   }
 
   buildHeap(array) {
-    let firstParentIdx = Math.floor((array.length - 2) / 2);
+    const firstParentIdx = Math.floor((array.length - 2) / 2);
     for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
-      this.siftDown(0, array.length - 1, array);
+      this.siftDown(currentIdx, array.length - 1, array);
       this.count += 1;
     }
     return array;
