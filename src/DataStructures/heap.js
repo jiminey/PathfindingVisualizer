@@ -10,7 +10,12 @@ export default class MinHeap {
     }
 
     siftUp(currentIdx, heap){
-
+        let parentIdx = Math.floor((currentIdx - 1) / 2)
+        while (parentIdx > 0 && heap[currentIdx] < heap[parentIdx]) {
+            this.swap(currentIdx, parentIdx, heap)
+            currentIdx = parentIdx
+            parentIdx = Math.floor((currentIdx - 1) / 2)
+        }
     }
 
     peek() {
