@@ -29,7 +29,7 @@ export default class PathfindingVisualizer extends Component {
     const { grid } = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = astar(grid, startNode, endNode);
+    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
@@ -38,7 +38,7 @@ export default class PathfindingVisualizer extends Component {
     const { grid } = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
+    const visitedNodesInOrder = astar(grid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
     this.animateAStar(visitedNodesInOrder, nodesInShortestPathOrder);
   }
