@@ -16,7 +16,7 @@ export default class MinHeap {
   siftDown(currentIdx, endIdx, heap) {
     let childOneIdx = currentIdx * 2 + 1;
     while (childOneIdx <= endIdx) {
-      let childTwoIdx =
+      const childTwoIdx =
         currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
 
       let idxToSwap;
