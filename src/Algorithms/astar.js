@@ -14,11 +14,13 @@ export function astar(grid, startNode, endNode) {
         const closestNode = openList.shift();
         closedList.push(closestNode)
         closestNode.isVisited = true;
-        // if (closestNode.fCost = Infinity) return closedList; 
+
 
         if (closestNode === endNode) return closedList; 
         updateUnvisitedNeighbors(closestNode, grid, endNode, closedList, openList)
     }
+    closedList.push({})
+    return closedList;
 }
 
 function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {

@@ -117,7 +117,6 @@ export default class PathfindingVisualizer extends Component {
     //holding down mouse
     const newGrid = this.setWalls(this.state.grid, row, col);
     this.setState({ grid: newGrid, isMousePressed: true });
-    console.log('in mousedown')
   }
 
   handleMouseUp() {

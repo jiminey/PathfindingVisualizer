@@ -12,7 +12,10 @@ export function dijkstra(grid, startNode, endNode) {
         if (closestNode.isWall) continue;
 
         //case of being trapped
-        if (closestNode.distance === Infinity) return visitedNodes;
+        if (closestNode.distance === Infinity) {
+            visitedNodes.push({})
+            return visitedNodes;
+        }
 
         closestNode.isVisited = true;
         visitedNodes.push(closestNode)
