@@ -6,7 +6,7 @@ export default class MinHeap {
 
   buildHeap(array) {
     let firstParentIdx = Math.floor((array.length - 2) / 2);
-    for (const currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+    for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
       this.siftDown(0, array.length - 1, array);
       this.count += 1;
     }
@@ -16,10 +16,14 @@ export default class MinHeap {
   siftDown(currentIdx, endIdx, heap) {
     let childOneIdx = currentIdx * 2 + 1;
     while (childOneIdx <= endIdx) {
-      const childTwoIdx =
-        childTwoIdx * 2 + 2 <= endIdx ? childTwoIdx * 2 + 2 : -1;
+      let childTwoIdx =
+        currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
+
       let idxToSwap;
-      if (childTwoIdx !== -1 && heap[childTwoIdx].fCost < heap[childOneIdx].fCost) {
+      if (
+        childTwoIdx !== -1 &&
+        heap[childTwoIdx].fCost < heap[childOneIdx].fCost
+      ) {
         idxToSwap = childTwoIdx;
       } else {
         idxToSwap = childOneIdx;
@@ -69,7 +73,7 @@ export default class MinHeap {
   search(node) {
     let flag = false;
     for (let i = 0; i < this.heap.length - 1; i++) {
-        if (this.heap[i] === node) flag = true;
+      if (this.heap[i] === node) flag = true;
     }
     return flag;
   }
