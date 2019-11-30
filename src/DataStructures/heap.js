@@ -19,13 +19,13 @@ export default class MinHeap {
       const childTwoIdx =
         childTwoIdx * 2 + 2 <= endIdx ? childTwoIdx * 2 + 2 : -1;
       let idxToSwap;
-      if (childTwoIdx !== -1 && heap[childTwoIdx] < heap[childOneIdx]) {
+      if (childTwoIdx !== -1 && heap[childTwoIdx].fCost < heap[childOneIdx].fCost) {
         idxToSwap = childTwoIdx;
       } else {
         idxToSwap = childOneIdx;
       }
 
-      if (heap[idxToSwap] < heap[currentIdx]) {
+      if (heap[idxToSwap].fCost < heap[currentIdx].fCost) {
         this.swap(idxToSwap, currentIdx, heap);
         currentIdx = idxToSwap;
         childOneIdx = currentIdx * 2 + 1;
@@ -37,7 +37,7 @@ export default class MinHeap {
 
   siftUp(currentIdx, heap) {
     let parentIdx = Math.floor((currentIdx - 1) / 2);
-    while (parentIdx > 0 && heap[currentIdx] < heap[parentIdx]) {
+    while (parentIdx > 0 && heap[currentIdx].fCost < heap[parentIdx].fCost) {
       this.swap(currentIdx, parentIdx, heap);
       currentIdx = parentIdx;
       parentIdx = Math.floor((currentIdx - 1) / 2);
@@ -64,6 +64,14 @@ export default class MinHeap {
 
   length() {
     return this.count;
+  }
+
+  search(node) {
+    let flag = false;
+    for (let i = 0; i < this.heap.length - 1; i++) {
+        if (this.heap[i] === node) flag = true;
+    }
+    return flag;
   }
 
   swap(i, j, heap) {
