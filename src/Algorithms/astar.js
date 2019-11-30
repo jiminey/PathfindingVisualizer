@@ -8,8 +8,17 @@ export function astar(grid, startNode, endNode) {
     const openList = [startNode];
 
     while(!!openList.length) {
-        const sortedOpenList = sortByFCost(openList)
-        const closedNode = sortedOpenList.shift();
+        sortByFCost(openList)
+        const closestNode = openList.shift();
+
+        closedList.push(closestNode)
+
+        if (currentNode === endNode) return closedList; 
+
+
+
+
+
     }
     
 }
@@ -29,5 +38,5 @@ function manhattanHeuristic(startX, startY, endX, endY) {
 }
 
 function sortByFCost(unvisitedNodes) {
-    return unvisitedNodes.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
+    unvisitedNodes.sort((nodeA,nodeB) => nodeA.fCost - nodeB.fCost)
 }

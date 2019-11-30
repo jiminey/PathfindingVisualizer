@@ -5,8 +5,8 @@ export function dijkstra(grid, startNode, endNode) {
     
     //grab closest unvisited node and set it to visited and push to visitedNode until closest node 
     while (!!unvistedNodes.length){
-        const sortedUnvisitedNodes = sortNodesByDistance(unvistedNodes)
-        const closestNode = sortedUnvisitedNodes.shift();
+        sortNodesByDistance(unvistedNodes)
+        const closestNode = unvistedNodes.shift();
 
         //if encounter a wall we skip it aka move around
         if (closestNode.isWall) continue;
@@ -50,7 +50,7 @@ export function getUnvisitedNeighbors(node, grid) {
 }
 
 function sortNodesByDistance(unvistedNodes) {
-    return unvistedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance)
+    unvistedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance)
 }
 
 
