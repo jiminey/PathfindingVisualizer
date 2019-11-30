@@ -27,7 +27,7 @@ export function astar(grid, startNode, endNode) {
             if (openList.includes(neighbor) || neighbor.isWall) continue;
 
             // gCost is the shortest distance from start and closestNode
-            let gCost = currentNode.gCost + 1;
+            let gCost = closestNode.gCost + 1;
             let isGCostBest = false;
             
             if (!openList.includes(neighbor)) {

@@ -3,6 +3,7 @@ import Node from "../Node/Node";
 
 import "./PathfindingVisualizer.css";
 import { getNodesInShortestPathOrder, dijkstra } from "../Algorithms/dijkstras";
+import { astar } from "../Algorithms/astar"
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -28,21 +29,37 @@ export default class PathfindingVisualizer extends Component {
     const { grid } = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
+    const visitedNodesInOrder = astar(grid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
   
-  visualizeAstar() {
+  visualizeAStar() {
     const { grid } = this.state
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animateAStar(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+    for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
+      if (i === visitedNodesInOrder.length - 1) {
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, 15 * i);
+      } else {
+        setTimeout(() => {
+          const node = visitedNodesInOrder[i];
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
+        }, 15 * i);
+      }
+    }
+  }
+
+  animateAStar(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
       if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
@@ -132,7 +149,7 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeAstar()}>
+        <button onClick={() => this.visualizeAStar()}>
           Visualize A-star's Algorithm
         </button>
         <div className="grid">
