@@ -11,10 +11,17 @@ export function astar(grid, startNode, endNode) {
         sortByFCost(openList)
         const closestNode = openList.shift();
 
+        closestNode.isVisited = true;
         closedList.push(closestNode)
+
+        if (closestNode.isWall) continue;
+
+        //double check this
+        if (closestNode.distance = Infinity) return visitedNodes; 
 
         if (currentNode === endNode) return closedList; 
 
+        updateUnvisitedNeighbors(closestNode, )
 
 
 
