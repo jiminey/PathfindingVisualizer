@@ -1,4 +1,4 @@
-import { getUnvisitedNeighbors } from './dijkstras' 
+import { getUnvisitedNeighbors } from "../Node/Node"
 
 export function astar(grid, startNode, endNode) {
     // Initialize

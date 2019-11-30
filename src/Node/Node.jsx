@@ -15,7 +15,7 @@ export default class Node extends Component {
       isWall,
       onMouseDown,
       onMouseUp,
-      onMouseEnter,
+      onMouseEnter
     } = this.props;
     //triple ternary
     const extraClassName = isFinish
@@ -36,4 +36,26 @@ export default class Node extends Component {
       ></div>
     );
   }
+}
+
+export function getUnvisitedNeighbors(node, grid) {
+  const neighbors = [];
+  const { row, col } = node;
+
+  if (row > 0) neighbors.push(grid[row - 1][col]); //top
+  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]); // bottom
+  if (col > 0) neighbors.push(grid[row][col - 1]); // left
+  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]); // right, grid[0] = row to access col
+  return neighbors.filter(node => !node.isVisited); //return all neighbors not visited
+}
+
+export function getNodesInShortestPathOrder(endNode) {
+  const nodesInShortestPathOrder = [];
+  let currentNode = endNode;
+  while (currentNode !== null) {
+    nodesInShortestPathOrder.unshift(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+
+  return nodesInShortestPathOrder;
 }

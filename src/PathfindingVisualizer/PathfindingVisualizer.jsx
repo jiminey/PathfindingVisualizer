@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Node from "../Node/Node";
 
 import "./PathfindingVisualizer.css";
-import { getNodesInShortestPathOrder, dijkstra } from "../Algorithms/dijkstras";
-import { astar } from "../Algorithms/astar"
+import { getNodesInShortestPathOrder } from "../Node/Node";
+import { dijkstra } from "../Algorithms/dijkstras";
+import { astar } from "../Algorithms/astar";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -15,7 +16,7 @@ export default class PathfindingVisualizer extends Component {
     super(props);
     this.state = {
       grid: [],
-      isMousePressed: false,
+      isMousePressed: false
     };
   }
 
@@ -25,52 +26,30 @@ export default class PathfindingVisualizer extends Component {
     this.setState({ grid });
   }
 
-  visualizeDijkstra() {
-    const { grid } = this.state
+  handleVisualize(type) {
+    const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, endNode);
+    const visitedNodesInOrder =
+      type === "dijkstra"
+        ? dijkstra(grid, startNode, endNode)
+        : astar(grid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-  }
-  
-  visualizeAStar() {
-    const { grid } = this.state
-    const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const endNode = grid[END_NODE_ROW][END_NODE_COL];
-    const visitedNodesInOrder = astar(grid, startNode, endNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
-    this.animateAStar(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
 
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animate(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
       if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
           this.animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
+        }, 12 * i);
       } else {
         setTimeout(() => {
           const node = visitedNodesInOrder[i];
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node node-visited";
-        }, 10 * i);
-      }
-    }
-  }
-
-  animateAStar(visitedNodesInOrder, nodesInShortestPathOrder) {
-    for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
-      if (i === visitedNodesInOrder.length - 1) {
-        setTimeout(() => {
-          this.animateShortestPath(nodesInShortestPathOrder);
-        }, 15 * i);
-      } else {
-        setTimeout(() => {
-          const node = visitedNodesInOrder[i];
-          document.getElementById(`node-${node.row}-${node.col}`).className =
-            "node node-visited";
-        }, 15 * i);
+        }, 12 * i);
       }
     }
   }
@@ -97,7 +76,7 @@ export default class PathfindingVisualizer extends Component {
       previousNode: null,
       gCost: Infinity,
       hCost: Infinity,
-      fCost: Infinity, 
+      fCost: Infinity
     };
   }
 
@@ -136,24 +115,23 @@ export default class PathfindingVisualizer extends Component {
       ...node,
       isWall: !node.isWall
     };
-    newGrid[row][col] = newNode; 
+    newGrid[row][col] = newNode;
 
     //prevent walls from start and end node
     newGrid[START_NODE_ROW][START_NODE_COL].isWall = false;
     newGrid[END_NODE_ROW][END_NODE_COL].isWall = false;
-    
-    return newGrid;
-  }
 
+    return newGrid;
+  };
 
   render() {
     const { grid, isMousePressed } = this.state;
     return (
       <div>
-        <button onClick={() => this.visualizeDijkstra()}>
+        <button onClick={() => this.handleVisualize("dijkstra")}>
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() => this.visualizeAStar()}>
+        <button onClick={() => this.handleVisualize("astar")}>
           Visualize A-star's Algorithm
         </button>
         <div className="grid">
@@ -187,4 +165,3 @@ export default class PathfindingVisualizer extends Component {
     );
   }
 }
-
