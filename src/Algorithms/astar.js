@@ -1,13 +1,13 @@
 import { getUnvisitedNeighbors } from "../Node/Node";
-import MinHeap from "../DataStructures/heap"
+import MinHeap from "../DataStructures/heap";
 
 export function astar(grid, startNode, endNode) {
   // Initialize
   const closedList = [];
   startNode.gCost = 0;
-  const openList = new MinHeap;
-  openList.insert(startNode)
-
+  const openList = new MinHeap([]);
+  openList.insert(startNode);
+  
   while (!!openList.length) {
     const closestNode = openList.remove();
 
