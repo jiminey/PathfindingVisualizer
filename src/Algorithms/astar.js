@@ -5,6 +5,8 @@ export function astar(grid, startNode, endNode) {
     // Initialize
     const closedList = [];
     startNode.distance = 0;
+    startNode.gCost = 0;
+    endNode.hCost = 0
     const openList = [startNode];
 
     while(!!openList.length) {
@@ -16,24 +18,21 @@ export function astar(grid, startNode, endNode) {
 
         if (closestNode.isWall) continue;
 
-        //double check this
-        if (closestNode.distance = Infinity) return visitedNodes; 
+        // check for trap?
+        // if (closestNode.distance = Infinity) return closedList; 
 
         if (currentNode === endNode) return closedList; 
 
-        updateUnvisitedNeighbors(closestNode, )
-
-
-
-
+        updateUnvisitedNeighbors(closestNode, grid)
     }
-    
 }
 
 function updateUnvisitedNeighbors(node, grid, startNode, endNode) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid)
     for (const neighbor of unvisitedNeighbors) {
-        gCost = node.distance + 1
+        if (closedList.includes(neighbor)) continue; 
+
+        neighbor.gCost = node.gCost + 1
         neighbor.hCost = manhattanHeuristic(startNode.x, startNode.y, endNode.x, endNode.y)
 
     }
