@@ -132,11 +132,16 @@ export default class PathfindingVisualizer extends Component {
   setWalls = (grid, row, col) => {
     const newGrid = grid.slice();
     const node = newGrid[row][col];
-    const newNode = {
+    let newNode = {
       ...node,
       isWall: !node.isWall
     };
-    newGrid[row][col] = newNode;
+    newGrid[row][col] = newNode; 
+
+    //prevent walls from start and end node
+    newGRid[START_NODE_ROW][START_NODE_COL].isWall = false;
+    newGRid[END_NODE_ROW][END_NODE_COL].isWall = false;
+    
     return newGrid;
   }
 
