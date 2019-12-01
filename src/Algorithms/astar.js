@@ -1,5 +1,4 @@
 import { getUnvisitedNeighbors } from "../Node/Node";
-import MinHeap from "../DataStructures/heap";
 
 export function astar(grid, startNode, endNode) {
   // Initialize
