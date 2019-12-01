@@ -37,7 +37,7 @@ export default class PathfindingVisualizer extends Component {
     const startNode = newGrid[START_NODE_ROW][START_NODE_COL];
     const endNode = newGrid[END_NODE_ROW][END_NODE_COL];
     const visitedNodesInOrder =
-      Algorithm === "dijkstra"
+      typeOfAlgorithm === "dijkstra"
         ? dijkstra(newGrid, startNode, endNode)
         : astar(newGrid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
