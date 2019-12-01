@@ -5,6 +5,7 @@ import "./PathfindingVisualizer.css";
 import { getNodesInShortestPathOrder } from "../Node/Node";
 import { dijkstra } from "../Algorithms/dijkstras";
 import { astar } from "../Algorithms/astar";
+import { resetGridWithWalls, resetTimeOutEvents, clearWalls } from "../Node/reset"
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -28,11 +29,10 @@ export default class PathfindingVisualizer extends Component {
   }
 
   handleVisualize(type) {
-    this.resetTimeOutEvents();
-
+    resetTimeOutEvents(this.timeOutEvents);
     const { grid } = this.state;
 
-    const newGrid = this.resetGridWithWalls(grid);
+    const newGrid = resetGridWithWalls(grid);
     debugger;
 
     const startNode = newGrid[START_NODE_ROW][START_NODE_COL];
@@ -43,14 +43,6 @@ export default class PathfindingVisualizer extends Component {
         : astar(newGrid, startNode, endNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
-  }
-
-  resetTimeOutEvents() {
-    //reset set time out events
-    for (const events of this.timeOutEvents) {
-      clearTimeout(events);
-    }
-    this.timeOutEvents = [];
   }
 
   animate(visitedNodesInOrder, nodesInShortestPathOrder) {
@@ -107,68 +99,6 @@ export default class PathfindingVisualizer extends Component {
     return grid;
   }
 
-  resetGridWithWalls(grid) {
-    const newGrid = [];
-    for (let row of grid) {
-      const currentRow = [];
-      for (let node of row) {
-        if (node.isWall) {
-          currentRow.push({
-            row: node.row,
-            col: node.col,
-            isWall: true,
-            isStart: node.isStart,
-            isFinish: node.isFinish,
-            distance: Infinity,
-            isVisited: false,
-            previousNode: null,
-            gCost: Infinity,
-            hCost: Infinity,
-            fCost: Infinity
-          });
-          const extraClassName = node.isFinish
-            ? "node-finish"
-            : node.isStart
-            ? "node-start"
-            : node.isWall
-            ? "node-wall"
-            : "";
-
-          if (!node.isStart || !node.isFinish)
-            document.getElementById(`node-${node.row}-${node.col}`).className =
-              `node ${extraClassName}`;
-        } else {
-          currentRow.push({
-            row: node.row,
-            col: node.col,
-            isWall: false,
-            isStart: node.isStart,
-            isFinish: node.isFinish,
-            distance: Infinity,
-            isVisited: false,
-            previousNode: null,
-            gCost: Infinity,
-            hCost: Infinity,
-            fCost: Infinity
-          });
-          const extraClassName = node.isFinish
-            ? "node-finish"
-            : node.isStart
-            ? "node-start"
-            : node.isWall
-            ? "node-wall"
-            : "";
-
-          if (!node.isStart || !node.isFinish)
-            document.getElementById(
-              `node-${node.row}-${node.col}`
-            ).className = `node ${extraClassName}`;
-        }
-      }
-      newGrid.push(currentRow);
-    }
-    return newGrid;
-  }
   handleMouseDown(row, col) {
     //holding down mouse
     const newGrid = this.setWalls(this.state.grid, row, col);
@@ -201,6 +131,11 @@ export default class PathfindingVisualizer extends Component {
     return newGrid;
   };
 
+  handleResetWalls() {
+    const newGrid = this.initializeGrid()
+    this.setState({grid: newGrid})
+  }
+
   render() {
     const { grid, isMousePressed } = this.state;
     return (
@@ -210,6 +145,9 @@ export default class PathfindingVisualizer extends Component {
         </button>
         <button onClick={() => this.handleVisualize("astar")}>
           Visualize A-star's Algorithm
+        </button>
+        <button onClick={() => this.handleResetWalls()}>
+          Clear All
         </button>
         <div className="grid">
           {grid.map((row, rowIdx) => {
