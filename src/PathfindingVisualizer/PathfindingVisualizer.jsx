@@ -52,7 +52,7 @@ export default class PathfindingVisualizer extends Component {
     }
     this.timeOutEvents = [];
   }
-  
+
   animate(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 1; i <= visitedNodesInOrder.length - 1; i++) {
       if (i === visitedNodesInOrder.length - 1) {
@@ -126,9 +126,17 @@ export default class PathfindingVisualizer extends Component {
             hCost: Infinity,
             fCost: Infinity
           });
+          const extraClassName = node.isFinish
+            ? "node-finish"
+            : node.isStart
+            ? "node-start"
+            : node.isWall
+            ? "node-wall"
+            : "";
+
           if (!node.isStart || !node.isFinish)
             document.getElementById(`node-${node.row}-${node.col}`).className =
-              "node";
+              `node ${extraClassName}`;
         } else {
           currentRow.push({
             row: node.row,
@@ -143,9 +151,18 @@ export default class PathfindingVisualizer extends Component {
             hCost: Infinity,
             fCost: Infinity
           });
+          const extraClassName = node.isFinish
+            ? "node-finish"
+            : node.isStart
+            ? "node-start"
+            : node.isWall
+            ? "node-wall"
+            : "";
+
           if (!node.isStart || !node.isFinish)
-            document.getElementById(`node-${node.row}-${node.col}`).className =
-              "node";
+            document.getElementById(
+              `node-${node.row}-${node.col}`
+            ).className = `node ${extraClassName}`;
         }
       }
       newGrid.push(currentRow);
