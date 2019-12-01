@@ -1,7 +1,11 @@
 .grid {
-  margin: 100px 0 0;
+  background: white;
+  width: fit-content;
+  opacity: none;
+  margin: 80px auto;
+
 }
 
 body {
-  background: lightpink;
+  background: #999;
 }
