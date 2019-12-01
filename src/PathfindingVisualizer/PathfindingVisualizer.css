@@ -1,12 +1,13 @@
 .grid {
-  background: white;
+  background: inherit;
   width: 1400px;
   height: 600px;
-  opacity: none;
+  opacity: 100%;
   margin: 80px auto;
   padding-top: 40px;
 }
 
 body {
-  background: #999;
+  background-image: url("https://github.com/jiminey/PathfindingVisualizer/blob/master/assests/background.jpg?raw=true");
+  background-size: cover;
 }
