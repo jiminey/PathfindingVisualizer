@@ -1,9 +1,10 @@
 .grid {
   background: white;
-  width: fit-content;
+  width: 1400px;
+  height: 600px;
   opacity: none;
   margin: 80px auto;
-
+  padding-top: 40px;
 }
 
 body {
