@@ -5,7 +5,7 @@ import "./PathfindingVisualizer.css";
 import { getNodesInShortestPathOrder } from "../Node/Node";
 import { dijkstra } from "../Algorithms/dijkstras";
 import { astar } from "../Algorithms/astar";
-import { resetGridWithWalls, resetTimeOutEvents, clearWalls } from "../Node/reset"
+import { resetGridWithWalls, resetTimeOutEvents, clearAll } from "../Node/reset"
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -32,7 +32,7 @@ export default class PathfindingVisualizer extends Component {
     resetTimeOutEvents(this.timeOutEvents);
     const { grid } = this.state;
 
-    const newGrid = resetGridWithWalls(grid);
+    const newGrid = resetGridWithWalls(grid, 'withWalls');
     debugger;
 
     const startNode = newGrid[START_NODE_ROW][START_NODE_COL];
@@ -131,9 +131,10 @@ export default class PathfindingVisualizer extends Component {
     return newGrid;
   };
 
-  handleResetWalls() {
-    const newGrid = this.initializeGrid()
-    this.setState({grid: newGrid})
+  handleClearAll(grid) {
+    resetTimeOutEvents(this.timeOutEvents)
+    const newGrid = resetGridWithWalls(grid, 'withoutWalls')
+    clearAll(newGrid)
   }
 
   render() {
@@ -146,7 +147,7 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.handleVisualize("astar")}>
           Visualize A-star's Algorithm
         </button>
-        <button onClick={() => this.handleResetWalls()}>
+        <button onClick={() => this.handleClearAll(grid)}>
           Clear All
         </button>
         <div className="grid">
