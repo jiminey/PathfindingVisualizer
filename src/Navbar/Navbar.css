@@ -1,6 +1,6 @@
 .navbar {
     width: 100%; 
-    background: navy;
+    background: darkolivegreen;
     color: #ffffff;
     height: fit-content;
     position: absolute;
@@ -10,4 +10,6 @@
     font-size: 20px;
     padding-left: 40px;
     display: flex;
+    opacity: 95%;
+    letter-spacing: 1.4px;
 }

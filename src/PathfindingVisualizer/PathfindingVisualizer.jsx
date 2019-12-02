@@ -146,7 +146,7 @@ export default class PathfindingVisualizer extends Component {
             Visualize Dijkstra's Algorithm
           </button>
           <button onClick={() => this.handleVisualize("astar")}>
-            Visualize A-star's Algorithm
+            Visualize A* Search Algorithm
           </button>
           <button onClick={() => this.handleClearAll(grid)}>
             Clear All
