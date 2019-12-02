@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Node from "../Node/Node";
-import Navbar from "../Navbar/Navbar"
 
 import "./PathfindingVisualizer.css";
 import { getNodesInShortestPathOrder } from "../Node/Node";
@@ -142,7 +141,6 @@ export default class PathfindingVisualizer extends Component {
     const { grid, isMousePressed } = this.state;
     return (
       <div className='content-container'>
-        <Navbar/>
         <div className='button-container'>
           <button onClick={() => this.handleVisualize("dijkstra")}>
             Visualize Dijkstra's Algorithm

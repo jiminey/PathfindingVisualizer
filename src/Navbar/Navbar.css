@@ -1,0 +1,8 @@
+.navbar {
+    width: 100%; 
+    background: navy;
+    color: #ffffff;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+}
