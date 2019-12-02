@@ -8,6 +8,11 @@
   border-radius: 4px;
 }
 
+.node:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .node-finish {
   background-color: maroon;
 }
