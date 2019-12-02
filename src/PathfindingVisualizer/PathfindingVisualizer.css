@@ -31,6 +31,8 @@ button {
   height: fit-content;
   width: fit-content;
   margin: auto;
+  position: relative;
+  top: 0px;
 }
 
 h1 {
