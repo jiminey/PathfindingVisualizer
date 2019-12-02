@@ -26,10 +26,11 @@ button {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   letter-spacing: 1.4px;
   font-weight: bold;
-  border: 1px solid gray;
+  border: 1px solid olive;
   margin: 60px 0px -40px 0px;
   background: darkcyan;
   color: white;
+  opacity: 80%;
 }
 
 .content-container {
