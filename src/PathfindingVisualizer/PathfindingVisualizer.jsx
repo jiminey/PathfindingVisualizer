@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Node from "../Node/Node";
+import Navbar from "../Navbar/Navbar"
 
 import "./PathfindingVisualizer.css";
 import { getNodesInShortestPathOrder } from "../Node/Node";
@@ -140,16 +141,19 @@ export default class PathfindingVisualizer extends Component {
   render() {
     const { grid, isMousePressed } = this.state;
     return (
-      <div>
-        <button onClick={() => this.handleVisualize("dijkstra")}>
-          Visualize Dijkstra's Algorithm
-        </button>
-        <button onClick={() => this.handleVisualize("astar")}>
-          Visualize A-star's Algorithm
-        </button>
-        <button onClick={() => this.handleClearAll(grid)}>
-          Clear All
-        </button>
+      <div className='content-container'>
+        <Navbar/>
+        <div className='button-container'>
+          <button onClick={() => this.handleVisualize("dijkstra")}>
+            Visualize Dijkstra's Algorithm
+          </button>
+          <button onClick={() => this.handleVisualize("astar")}>
+            Visualize A-star's Algorithm
+          </button>
+          <button onClick={() => this.handleClearAll(grid)}>
+            Clear All
+          </button>
+        </div>
         <div className="grid">
           {grid.map((row, rowIdx) => {
             return (
