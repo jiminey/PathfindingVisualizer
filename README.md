@@ -1,4 +1,6 @@
 # Pathfinding Visualizer
+[Live Site](https://jiminey.github.io/PathfindingVisualizer/)
+
 This is a shortest pathfinding visualizer utilizing Dijkstra's and A* search algorithms. This A* search algorithm utilizes the Manhattan distance for it's heuristic function -- this allows for only up, down, left, right movements. This project is built using React.  
 
 ![Dijkstra](https://github.com/jiminey/PathfindingVisualizer/blob/master/assets/dijkstra.gif?raw=true)
