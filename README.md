@@ -65,12 +65,10 @@ function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
 
 ### Manhattan Heuristic Function
 
-The manhattan heurisit function was used for only lateral movements. 
-
 ```js
  function manhattanHeuristic(node, endNode) {
-  // h-cost = distance from node to endNode
-  // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
+  // Utilized the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
+
   return Math.abs(node.row - endNode.row) + Math.abs(node.col - endNode.col);
 }
 ```
