@@ -75,4 +75,4 @@ function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
 
 ## Authors
 
-* **Jimmy Nguyen* - *Portfolio* - [PurpleBooth](https://jimmynguyen.dev/)
+* **Jimmy Nguyen* - [Portfolio](https://jimmynguyen.dev/)
