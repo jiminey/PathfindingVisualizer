@@ -7,6 +7,8 @@ import { dijkstra } from "../Algorithms/dijkstras";
 import { astar } from "../Algorithms/astar";
 import { resetGrid, resetTimeOutEvents, clearAll } from "../Node/reset"
 
+
+// Constants for start and end nodes
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
 const END_NODE_ROW = 10;
@@ -23,15 +25,17 @@ export default class PathfindingVisualizer extends Component {
   }
 
   componentDidMount() {
-    //initialize grid
+    // Initialize grid
     const grid = this.initializeGrid();
     this.setState({ grid });
   }
 
   handleVisualize(typeOfAlgorithm) {
+    // Stops all current animation
     resetTimeOutEvents(this.timeOutEvents);
     const { grid } = this.state;
 
+    // Reset grid but keep walls
     const newGrid = resetGrid(grid, 'withWalls');
 
     const startNode = newGrid[START_NODE_ROW][START_NODE_COL];
@@ -40,6 +44,7 @@ export default class PathfindingVisualizer extends Component {
       typeOfAlgorithm === "dijkstra"
         ? dijkstra(newGrid, startNode, endNode)
         : astar(newGrid, startNode, endNode);
+
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
     this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
   }
@@ -99,7 +104,6 @@ export default class PathfindingVisualizer extends Component {
   }
 
   handleMouseDown(row, col) {
-    //holding down mouse
     const newGrid = this.setWalls(this.state.grid, row, col);
     this.setState({ grid: newGrid, isMousePressed: true });
   }
@@ -123,7 +127,7 @@ export default class PathfindingVisualizer extends Component {
     };
     newGrid[row][col] = newNode;
 
-    //prevent walls from start and end node
+    // Case walls on start and end nodes
     newGrid[START_NODE_ROW][START_NODE_COL].isWall = false;
     newGrid[END_NODE_ROW][END_NODE_COL].isWall = false;
 
@@ -131,6 +135,7 @@ export default class PathfindingVisualizer extends Component {
   };
 
   handleClearAll(grid) {
+    // Clear everything on grid
     resetTimeOutEvents(this.timeOutEvents)
     let newGrid = resetGrid(grid, 'withoutWalls')
     this.setState({grid: newGrid})

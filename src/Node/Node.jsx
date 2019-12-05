@@ -13,7 +13,7 @@ export default class Node extends Component {
       onMouseUp,
       onMouseEnter
     } = this.props;
-    //triple ternary
+    // Triple ternary
     const extraClassName = isFinish
       ? "node-finish"
       : isStart
@@ -38,11 +38,11 @@ export function getUnvisitedNeighbors(node, grid) {
   const neighbors = [];
   const { row, col } = node;
 
-  if (row > 0) neighbors.push(grid[row - 1][col]); //top
-  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]); // bottom
-  if (col > 0) neighbors.push(grid[row][col - 1]); // left
-  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]); // right, grid[0] = row to access col
-  return neighbors.filter(node => !node.isVisited); //return all neighbors not visited
+  if (row > 0) neighbors.push(grid[row - 1][col]); // Top
+  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]); // Bottom
+  if (col > 0) neighbors.push(grid[row][col - 1]); // Left
+  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]); // Right
+  return neighbors.filter(node => !node.isVisited); // Return all neighbors not visited
 }
 
 export function getNodesInShortestPathOrder(endNode) {

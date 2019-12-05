@@ -6,12 +6,16 @@ export function astar(grid, startNode, endNode) {
   const closedList = [];
   startNode.gCost = 0;
   const openList = [];
+
+  // Push startnode
   openList.push(startNode);
 
   while (!!openList.length) {
     sortNodesByFCost(openList)
+    // Get lowest fCost node
     const closestNode = openList.shift();
 
+    // Save order of nodes
     closedList.push(closestNode);
     closestNode.isVisited = true;
 
@@ -25,22 +29,22 @@ export function astar(grid, startNode, endNode) {
 function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
-    // neighbor is in closedList
+    // Neighbor is in closedList
     if (closedList.includes(neighbor) || neighbor.isWall) continue;
 
+    // Set g, h, f costs
     neighbor.gCost = node.gCost + 1;
     neighbor.hCost = manhattanHeuristic(neighbor, endNode);
     neighbor.fCost = neighbor.gCost + neighbor.hCost;
     neighbor.previousNode = node;
 
-    // neighbor is in openList
+    // Neighbor is in openList
     if (openList.includes(neighbor)) continue;
     openList.push(neighbor);
   }
 }
 
 function manhattanHeuristic(node, endNode) {
-  // h-cost = distance from node to endNode
   // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
   return Math.abs(node.row - endNode.row) + Math.abs(node.col - endNode.col);
 }
