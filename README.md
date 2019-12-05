@@ -13,9 +13,9 @@ run npm start
 
 ### Implementation with minimum heap
 
-    The heap implementation allows for constant time insertion and removal. Without using a heap the array of nodes will be sorted each time a node is inserted -- thus creating a time complexity of O(logn). Heap implementation won't matter in this case as there are not enough nodes to make a difference.
+The heap implementation allows for constant time insertion and removal. Without using a heap the array of nodes will be sorted each time a node is inserted -- thus creating a time complexity of O(logn). Heap implementation won't matter in this case as there are not enough nodes to make a difference.
 
-```
+```js
 function astar(grid, startNode, endNode) {
   // Initialize
   const closedList = [];
@@ -64,7 +64,7 @@ function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
 
 The manhattan heurisit function was used for only lateral movements. 
 
-```
+```js
  function manhattanHeuristic(node, endNode) {
   // h-cost = distance from node to endNode
   // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
