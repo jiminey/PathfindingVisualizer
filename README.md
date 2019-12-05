@@ -17,18 +17,21 @@ The heap implementation allows for constant time insertion and removal. Without 
 
 ```js
 function astar(grid, startNode, endNode) {
+
   // Initialize
   const closedList = [];
   startNode.gCost = 0;
+
   // Create Heap
   const openList = newHeap([])
+
   // Push startnode 
   openList.insert(startNode);
 
   while (!!openList.count) {
+
     // Remove lowest fCost node
     const closestNode = openList.remove();
-
 
     closedList.push(closestNode);
     closestNode.isVisited = true;
