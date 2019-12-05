@@ -9,11 +9,11 @@ This is a shortest pathfinding visualizer utilizing Dijkstra's and A* search alg
 ## Getting Started
 
 ```
-run npm install
+npm run install
 ```
 
 ```
-run npm start
+npm run start
 ```
 
 ### Implementation with minimum heap
