@@ -3,84 +3,75 @@ This is a shortest pathfinding visualizer utilizing Dijkstra's and A* search alg
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
 ```
-Give examples
+run npm install
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
 ```
-Give the example
+run npm start
 ```
 
-And repeat
+### Implementation with minimum heap
+
+    The heap implementation allows for constant time insertion and removal. Without using a heap the array of nodes will be sorted each time a node is inserted -- thus creating a time complexity of O(logn). Heap implementation won't matter in this case as there are not enough nodes to make a difference.
 
 ```
-until finished
+function astar(grid, startNode, endNode) {
+  // Initialize
+  const closedList = [];
+  startNode.gCost = 0;
+  // Create Heap
+  const openList = newHeap([])
+  // Push startnode 
+  openList.insert(startNode);
+
+  while (!!openList.count) {
+    // Remove lowest fCost node
+    const closestNode = openList.remove();
+
+
+    closedList.push(closestNode);
+    closestNode.isVisited = true;
+
+    // End case
+    if (closestNode === endNode) return closedList;
+    updateUnvisitedNeighbors(closestNode, grid, endNode, closedList, openList);
+  }
+  closedList.push({});
+  return closedList;
+}
+
+function updateUnvisitedNeighbors(node, grid, endNode, closedList, openList) {
+  const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
+  for (const neighbor of unvisitedNeighbors) {
+    // Neighbor is in closedList
+    if (closedList.includes(neighbor) || neighbor.isWall) continue;
+
+    // Set costs
+    neighbor.gCost = node.gCost + 1;
+    neighbor.hCost = manhattanHeuristic(neighbor, endNode);
+    neighbor.fCost = neighbor.gCost + neighbor.hCost;
+    neighbor.previousNode = node;
+
+    // neighbor is in openList
+    if (openList.search(neighbor)) continue;
+    openList.insert(neighbor);
+  }
+}
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Manhattan Heuristic Function
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+The manhattan heurisit function was used for only lateral movements. 
 
 ```
-Give an example
+ function manhattanHeuristic(node, endNode) {
+  // h-cost = distance from node to endNode
+  // Utilize the Manhattan Distance -- allows for 4 directional movement (up, down, left, right)
+  return Math.abs(node.row - endNode.row) + Math.abs(node.col - endNode.col);
+}
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* **Jimmy Nguyen* - *Portfolio* - [PurpleBooth](https://jimmynguyen.dev/)
